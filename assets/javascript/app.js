@@ -74,10 +74,4 @@ var config = {
     console.log("Arrival Time: " + moment(nextTrain).format("hh:mm")); 
 
     $("#trainTable > tbody").append("<tr><td>" + trainNameInput + "</td><td>" + destinationInput + "</td><td>" + frequencyInput + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + minNextTrain + "</td></tr>");
-
-    $("#trainTable").load("index.php");
-   var refreshId = setInterval(function() {
-      $("#trainTable").load('index.php?randval='+ Math.random());
-   }, 60000);
-   $.ajaxSetup({ cache: false });
 });
