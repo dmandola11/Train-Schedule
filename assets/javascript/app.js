@@ -44,4 +44,35 @@ var config = {
   database.ref().on("child_added", function(childSnapshot, prevChildKey){
 
 	console.log(childSnapshot.val());
+
+	var trainNameInput = childSnapshot.val().name;
+  	var destinationInput = childSnapshot.val().destination; 
+  	var timeInput = childSnapshot.val().time;
+  	var frequencyInput = childSnapshot.val().frequency;
+
+  	console.log(trainNameInput);
+  	console.log(destinationInput);
+  	console.log(timeInput);
+  	console.log(frequencyInput);
+
+    var firstTrain = moment(timeInput, "hh:mm").subtract(1, "years");
+    console.log(firstTrain);
+
+    var currentTime = moment();
+    console.log("Current Time: " + moment(currentTime).format("hh:mm"));
+
+    var tDifference = moment().diff(moment(firstTrain), "minutes");
+    console.log("Time Difference: " + tDifference);
+
+    var timeRemain = tDifference % frequencyInput;
+    console.log(timeRemain);
+
+    var minNextTrain = frequencyInput - timeRemain;
+    console.log("Minutes until Next Train: " + minNextTrain);
+
+    var nextTrain = moment().add(minNextTrain, "minutes");
+    console.log("Arrival Time: " + moment(nextTrain).format("hh:mm")); 
+
+    $("#trainTable > tbody").append("<tr><td>" + trainNameInput + "</td><td>" + destinationInput + "</td><td>" + frequencyInput + "</td><td>" + moment(nextTrain).format("hh:mm") + "</td><td>" + minNextTrain + "</td></tr>");
+
 });
